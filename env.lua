@@ -1,11 +1,11 @@
 if _G.env then return end
 
-local ENV_URL = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/env.lua"
+local ENV_URL = "https://raw.githubusercontent.com/casilian/Libraries/main/env.lua"
 
 local modules = {
-    { file = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/drawing.lua",   key = "Draw",    alias = "draw" },
-    { file = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/offsets.lua",   key = "Offsets", alias = "offsets" },
-    { file = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/utilities.lua", key = "Utils",   alias = "utils" },
+    { file = "https://raw.githubusercontent.com/casilian/Libraries/main/drawing.lua",   key = "Draw",    alias = "draw" },
+    { file = "https://raw.githubusercontent.com/casilian/Libraries/main/offsets.lua",   key = "Offsets", alias = "offsets" },
+    { file = "https://raw.githubusercontent.com/casilian/Libraries/main/utilities.lua", key = "Utils",   alias = "utils" },
 }
 
 for _, module in ipairs(modules) do
