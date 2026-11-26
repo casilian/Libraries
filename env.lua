@@ -5,7 +5,7 @@ local ENV_URL = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads
 local modules = {
     { file = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/drawing.lua",   key = "Draw",    alias = "draw" },
     { file = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/offsets.lua",   key = "Offsets", alias = "offsets" },
-    { file = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/utilities.lua", key = "utils",   alias = "utils" },
+    { file = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/utilities.lua", key = "Utils",   alias = "utils" },
 }
 
 for _, module in ipairs(modules) do
@@ -36,7 +36,7 @@ _G.env = {
 
     reload = function()
         if _G.Draw and _G.Draw.Destroy then _G.Draw.Destroy() end
-        _G.Draw, _G.Utils, _G.Offsets, _G.env = nil, nil, nil, nil
+        _G.Draw, _G.Utils, _G.utils, _G.Offsets, _G.env = nil, nil, nil, nil, nil
         local body = httpget(ENV_URL)
         assert(body ~= "", "fetch failed: " .. ENV_URL)
         loadstring(body, "env.lua")()
