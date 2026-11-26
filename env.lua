@@ -1,20 +1,21 @@
 if _G.env then return end
 
+local ENV_URL = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/env.lua"
+
 local modules = {
-    { file = "draw.lua",      key = "Draw",   alias = "draw" },
-    { file = "offsets.lua",   key = "Offsets", alias = "offsets" },
-    { file = "utilities.lua", key = "Utils",   alias = "utils" },
+    { file = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/drawing.lua",   key = "Draw",    alias = "draw" },
+    { file = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/offsets.lua",   key = "Offsets", alias = "offsets" },
+    { file = "https://raw.githubusercontent.com/casilian/Libraries/refs/heads/main/utilities.lua", key = "Utils",   alias = "utils" },
 }
 
 for _, module in ipairs(modules) do
     if _G[module.key] == nil then
-        local path = module.file
-        assert(isfile(path), "missing module: " .. path)
-
-        local chunk = loadstring(readfile(path), path)
+        local body = httpget(module.file)
+        assert(body ~= "", "fetch failed: " .. module.file)
+        local chunk = loadstring(body, module.file)
         local ok, err = pcall(chunk)
-        assert(ok, err or ("chunk failed: " .. path))
-        assert(_G[module.key] ~= nil, "no _G." .. module.key .. " from " .. path)
+        assert(ok, err or ("chunk failed: " .. module.file))
+        assert(_G[module.key] ~= nil, "no _G." .. module.key .. " from " .. module.file)
     end
 
     _G[module.alias] = _G[module.key]
@@ -36,6 +37,8 @@ _G.env = {
     reload = function()
         if _G.Draw and _G.Draw.Destroy then _G.Draw.Destroy() end
         _G.Draw, _G.Utils, _G.Offsets, _G.env = nil, nil, nil, nil
-        loadstring(readfile("env.lua"), "env.lua")()
+        local body = httpget(ENV_URL)
+        assert(body ~= "", "fetch failed: " .. ENV_URL)
+        loadstring(body, "env.lua")()
     end,
 }
