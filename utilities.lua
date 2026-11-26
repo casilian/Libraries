@@ -62,5 +62,5 @@ utils.bind = function(parent, root_name, paths)
     end
 end
 
-_G.utils = utils
+_G.Utils = utils
 
